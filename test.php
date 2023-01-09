@@ -7,26 +7,71 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="get">
-        <div>
-            <label for="number1">Number1:</label>
-            <input type="number" id="number1" name="nb1">
-            
-        </div>
-        <div>
-            <label for="number2">Number2:</label>
-            <input type="number" id="number2" name="nb2">
-
-        </div>
-        <button type="submit">Compute</button>
-    </form>
-
+    <!-- CONNECT TO DB -->
     <?php
-       // http://localhost/php_practice/test.php?nb1=3&nb2=127
-       echo "<pre>" ;
-       var_dump($_GET);    
-       echo "</pre>" ;
-       
+    define('DBHOST', 'localhost');
+    define('DBUSER', 'root');
+    define('DBPASS', '');
+    define('DBNAME', 'php_practice_db');
+
+    
+    // DSN
+    $dsn = "mysql:dbname=".DBNAME.";host=".DBHOST;
+    try{
+        $db = new PDO($dsn, DBUSER, DBPASS);
+        $db->exec("SET NAMES utf8");
+        // Set DEFAULT FETCH
+        $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        echo "Connected to Database";
+    }catch(PDOException $e){
+        die($e->getMessage());
+        echo $e;
+    }
+
+    // -------------------------------------   GET DATA   ---------------------------------------
+    
+    // Write query
+    $query = "SELECT * FROM `users`";
+    
+    // Init query
+    $req = $db->query($query);
+    
+    // Fetch Data
+    $user = $req->fetchAll();
+    
+    // We can choose to get that data in other forms eg = assoc array
+    
+    // $user_assoc = $req->fetch(PDO::FETCH_ASSOC);
+    
+    // echo var_dump($user_assoc);
+    // echo var_dump($user);
+    
+    
+    
+    // -------------------------------------   POST DATA   ---------------------------------------
+    
+    // $push = "INSERT INTO `users`(`first_name`,`last_name`,`email`,`password`) VALUES ('aka', 'labi', 'aka@labi.com', 'pass1234')";
+    
+    // $req = $db->query($push);
+    
+
+
+    // -------------------------------------   EDIT DATA   ---------------------------------------
+    
+    // $edit = "UPDATE `users` SET `password` = 'pass12345'
+    //        WHERE `first_name` = 'aka'";
+    
+    // $req = $db->query($edit);
+    
+
+
+    // -------------------------------------   DELETE DATA   ---------------------------------------
+
+    $delete = "DELETE FROM `users` WHERE `password` = 'pass12345'";
+
+    $req = $db->query($delete);
+
+    echo var_dump($user);
     ?>
 
 </body>
