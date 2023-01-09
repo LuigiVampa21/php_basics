@@ -50,7 +50,8 @@ if(!empty($_POST)){
         }
 
         // REDIRECT TO OVERVIEW PAGE
-        header("Location: overview.php");
+        // header("Location: pages/overview.php");
+        header("Location: ../pages/overview.php");
     }else{
         die("Incomplete form");
     }

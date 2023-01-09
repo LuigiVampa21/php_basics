@@ -44,7 +44,8 @@ if(!empty($_POST)){
             echo ('No user found!');
         }
         // REDIRECT TO OVERVIEW PAGE
-        header("Location: overview.php");
+        // header("Location: pages/overview.php");
+        header("Location: ../pages/overview.php");
         
     }else{
         die("Incomplete form");
