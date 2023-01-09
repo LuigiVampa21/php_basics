@@ -1,5 +1,16 @@
 <?php
 
+$title = "Register";
+$page_title = "Create an Account";
+
+include_once '../includes/header.php';
+include_once '../includes/navbar.php';
+
+if(isset($_SESSION["user"])){
+    header("Location: ../pages/overview.php");
+    exit;
+}
+
 // CHECK IF FORM HAS BEEN SENT
 if(!empty($_POST)){
     // CHECK IF ALL INPUTS HAVE BEEN FILLED
@@ -32,7 +43,7 @@ if(!empty($_POST)){
         $req->execute();
 
         // CONNECT & OPEN USER SESSION
-        session_start();
+        // session_start();
         // STOCKE USERDATA INTO $_SESSION
         $_SESSION["user"] = [
             "first_name" => $first_name,
@@ -57,11 +68,6 @@ if(!empty($_POST)){
 
 
 
-$title = "Register";
-$page_title = "Create an Account";
-
-include_once '../includes/header.php';
-include_once '../includes/navbar.php';
 
 ?>
 

@@ -26,7 +26,6 @@ $page_title = 'Home Page';
 
     $user = $req->fetch();
 
-    echo var_dump($user);
 
     include "./includes/footer.php";
 ?>    

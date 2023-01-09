@@ -1,5 +1,16 @@
 <?php
 
+$title = "Login";
+$page_title = "Sign in to your account";
+
+include_once '../includes/header.php';
+include_once '../includes/navbar.php';
+
+if(isset($_SESSION["user"])){
+    header("Location: ../pages/overview.php");
+    exit;
+}
+
 // CHECK IF FORM HAS BEEN SENT
 if(!empty($_POST)){
     // CHECK IF ALL INPUTS HAVE BEEN FILLED
@@ -62,11 +73,6 @@ if(!empty($_POST)){
 
 
 
-$title = "Login";
-$page_title = "Sign in to your account";
-
-include_once '../includes/header.php';
-include_once '../includes/navbar.php';
 
 ?>
 

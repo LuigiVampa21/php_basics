@@ -2,6 +2,9 @@
 $title = "Add Item";
 $page_title = 'Add New Item';
 
+include_once "../../includes/header.php";
+include_once "../../includes/navbar.php";
+
 if(!empty($_POST)){
     // Check datas
     if(isset($_POST['title'], $_POST['content']) && !empty($_POST['title']) && !empty($_POST['content'])){
@@ -29,8 +32,6 @@ if(!empty($_POST)){
 }
 var_dump($_POST);
 
-    include_once "../../includes/header.php";
-    include_once "../../includes/navbar.php";
 
 
 ?>

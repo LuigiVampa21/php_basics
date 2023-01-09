@@ -3,5 +3,5 @@ session_start();
 // REMOVE $_SESSION
 unset($_SESSION["user"]);
 
-header("Location: index.php");
+header("Location: ../index.php");
 ?>

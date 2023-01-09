@@ -10,7 +10,9 @@ $id = $_GET["id"];
 
 require_once "./database/connectDB.php";
 $title = 'Item'; 
+$page_title = $item['title'];
 include "./includes/header.php";
+include "./includes/navbar.php";
 
 $sql = "SELECT * from `item` WHERE `id` = :id";
 
@@ -28,8 +30,6 @@ if(!$item){
     exit;
 }
 
-$page_title = $item['title'];
-include "./includes/navbar.php";
 ?>
 
 
