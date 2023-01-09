@@ -31,7 +31,20 @@ if(!empty($_POST)){
         $req->bindValue(":email", $email, PDO::PARAM_STR);
         $req->execute();
 
-        // Connect User
+        // CONNECT & OPEN USER SESSION
+        session_start();
+        // STOCKE USERDATA INTO $_SESSION
+        $_SESSION["user"] = [
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "email" => $email
+        ];
+
+        if(!$_SESSION){
+            echo ('No user found!');
+        }
+        // REDIRECT TO OVERVIEW PAGE
+        header("Location: overview.php");
         
     }else{
         die("Incomplete form");
@@ -66,7 +79,7 @@ include_once '../includes/navbar.php';
     </div>
     <div>
         <label for="password">Password</label>
-        <input type="text" name="password">
+        <input type="password" name="password">
     </div>
     <button type="submit">Sign up</button>
 </form>
