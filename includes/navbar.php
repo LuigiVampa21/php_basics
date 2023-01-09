@@ -1,5 +1,5 @@
 <nav>
-        <h1>Title</h1>
+        <h1><?= $page_title ?></h1>
         <ul>
             <li>Home</li>
             <li>Contact</li>

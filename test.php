@@ -66,12 +66,41 @@
 
 
     // -------------------------------------   DELETE DATA   ---------------------------------------
+    
+    // $delete = "DELETE FROM `users` WHERE `password` = 'pass12345'";
+    
+    // $req = $db->query($delete);
+    
+    // echo var_dump($user);
+    
+    
+    // $first_name='ntn';
+    // $password='pass1234';
+    
+    
+    // -------------------------------------   SANITIZE QUERY   ---------------------------------------
 
-    $delete = "DELETE FROM `users` WHERE `password` = 'pass12345'";
 
-    $req = $db->query($delete);
 
-    echo var_dump($user);
+    // $sql = " SELECT * FROM `users` WHERE `first_name`=:first_name AND `password`=:password";
+    // // $req = $db->query($sql);
+    // // $user = $req->fetch();
+
+    // // Prepare request
+    // $req = $db->prepare($sql);
+
+    // // Protect req with bindValues
+    // $req->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+    // $req->bindValue(":password", $password, PDO::PARAM_STR);
+
+    // // Init req
+    // $req->execute();
+
+    // $user = $req->fetch();
+
+    // echo var_dump($user);
+
+
     ?>
 
 </body>
