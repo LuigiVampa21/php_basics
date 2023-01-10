@@ -14,6 +14,7 @@ if($_FILES){
             "jpg" => "image/jpg",
             "jpeg" => "image/jpeg",
             "png" => "image/png",
+            "pdf" => "application/pdf"
         ];
         
         $filename = $_FILES["file"]["name"];
@@ -42,6 +43,8 @@ if($_FILES){
             die('Upload failed. Please try again later');
         } 
 
+        // FORBID FILE EXEC
+        $chmod($newfilename, 0644);
     }
 }
 

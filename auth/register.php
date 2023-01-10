@@ -11,6 +11,9 @@ if(isset($_SESSION["user"])){
     exit;
 }
 
+// INIT ERROR SESSION
+$_SESSION["error"] = [];
+
 // CHECK IF FORM HAS BEEN SENT
 if(!empty($_POST)){
     // CHECK IF ALL INPUTS HAVE BEEN FILLED
@@ -23,25 +26,32 @@ if(!empty($_POST)){
         // RETRIEVE && PROTECT DATA
         $first_name = strip_tags($_POST['first_name']);
         $last_name = strip_tags($_POST['last_name']);
+        if(strlen($first_name) < 5){
+            $_SESSION["error"][] = "Firstname must be at least 5 chars";
+            die("Invalid Firstname");
+        }
         if(!filter_var(($_POST["email"]), FILTER_VALIDATE_EMAIL)){
+            $_SESSION["error"][] = "Invalid Email";
             die("Invalid Email");
         }
-        $email = strip_tags($_POST['email']);
-        $password = strip_tags($_POST['password']); 
+        if($_SESSION["error"] === []){
 
-        $hashed_password = password_hash($password, PASSWORD_ARGON2ID);
-
+            $email = strip_tags($_POST['email']);
+            $password = strip_tags($_POST['password']); 
+            
+            $hashed_password = password_hash($password, PASSWORD_ARGON2ID);
+            
         require_once '../database/connectDB.php';
 
         $sql = "INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`) VALUES (:first_name, :last_name, :email,'$hashed_password')";
 
         $req = $db->prepare($sql);
-
+        
         $req->bindValue(":first_name", $first_name, PDO::PARAM_STR);
         $req->bindValue(":last_name", $last_name, PDO::PARAM_STR);
         $req->bindValue(":email", $email, PDO::PARAM_STR);
         $req->execute();
-
+        
         // CONNECT & OPEN USER SESSION
         // session_start();
         // STOCKE USERDATA INTO $_SESSION
@@ -50,16 +60,21 @@ if(!empty($_POST)){
             "last_name" => $last_name,
             "email" => $email
         ];
-
+        
         if(!$_SESSION){
             echo ('No user found!');
         }
         // REDIRECT TO OVERVIEW PAGE
         // header("Location: pages/overview.php");
         header("Location: ../pages/overview.php");
-        
     }else{
-        die("Incomplete form");
+        echo var_dump($_SESSION["error"]);
+        unset($_SESSION["error"]);
+    }
+    
+}else{
+    unset($_SESSION["error"]);
+    die("Incomplete form");
     }
 }
 
